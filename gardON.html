@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="gardON.css">
     <script src="gardON.js" defer></script>
-    
+
 
     <title>GardON</title>
     <link rel="icon" href="logoON.png" type="image/png">
@@ -15,25 +15,44 @@
 
 <body>
     <label class="switch">
-        <input type="checkbox" id="modeSwitch">
+        <input type="checkbox" checked id="modeSwitch">
         <span class="slider"></span>
     </label>
 
     <!--schedule mode-->
-    <div id="scheduleMode" class="container">
+    <div id="scheduleMode">
         <h1>GardON</h1>
+
+        <div class="scheduler">
+            <label><input type="checkbox" value="Monday" /> Monday</label>
+            <label><input type="checkbox" value="Tuesday" /> Tuesday</label>
+            <label><input type="checkbox" value="Wednesday" /> Wednesday</label>
+            <label><input type="checkbox" value="Thursday" /> Thursday</label>
+            <label><input type="checkbox" value="Friday" /> Friday</label>
+            <label><input type="checkbox" value="Saturday" /> Saturday</label>
+            <label><input type="checkbox" value="Sunday" /> Sunday</label>
+            
+            <input type="time" id="initialTime"/>
+            <input type="time" id="endTime"/>
+
+            <button id="confirmButton">Confirm</button>
+                
+
+        </div>
     </div>
 
     <!--manual mode-->
-    <div id="manualMode" class="container">
+    <div id="manualMode" class="hidden">
         <h1>Gard̶O̶N̶</h1>
         <h2>OFF</h2>
     </div>
 
-
-
-
     
+
+
+
+
+
 </body>
 
 </html>
