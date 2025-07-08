@@ -14,9 +14,9 @@
 </head>
 
 <body>
-    <label class="switch">
+    <label class="switchMode">
         <input type="checkbox" checked id="modeSwitch">
-        <span class="slider"></span>
+        <span class="sliderMode"></span>
     </label>
 
     <!--schedule mode-->
@@ -31,12 +31,12 @@
             <label><input type="checkbox" value="Friday" /> Friday</label>
             <label><input type="checkbox" value="Saturday" /> Saturday</label>
             <label><input type="checkbox" value="Sunday" /> Sunday</label>
-            
-            <input type="time" id="initialTime"/>
-            <input type="time" id="endTime"/>
+
+            <input type="time" id="initialTime" />
+            <input type="time" id="endTime" />
 
             <button id="confirmButton">Confirm</button>
-                
+
 
         </div>
     </div>
@@ -45,9 +45,41 @@
     <div id="manualMode" class="hidden">
         <h1>Gard̶O̶N̶</h1>
         <h2>OFF</h2>
+
+
+        <div class="manual">
+
+
+            <p>Pump</p>
+            <p>Valve</p>
+
+            <div class="control">
+                <label class="switch pumpSwitch">
+                    <input type="checkbox" id="pumpSwitch" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="control">
+                <label class="switch valveSwitch">
+                    <input type="checkbox" id="valveSwitch" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+
+
+        </div>
     </div>
 
-    
+    <div id="statusMode">
+        <div class="status">
+
+
+
+        </div>
+
+    </div>
 
 
 
