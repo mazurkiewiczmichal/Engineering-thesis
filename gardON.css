@@ -133,7 +133,8 @@ input:checked+.sliderMode:before {
     margin: 100px auto 0 auto;
     padding: 10px;
     border-radius: 34px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
 
 }
 
@@ -156,7 +157,8 @@ input:checked+.sliderMode:before {
     margin: auto;
     padding: 10px;
     border-radius: 34px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .circle {
@@ -186,7 +188,8 @@ input:checked+.sliderMode:before {
     margin: 100px auto 0px auto;
     padding: 10px;
     border-radius: 34px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     height: 100px;
 }
 
@@ -211,5 +214,6 @@ input:checked+.sliderMode:before {
     margin: auto;
     padding: 10px;
     border-radius: 34px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
 }
