@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
@@ -9,6 +10,11 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
+	soilMoisture := 22
+	// waterLevel1 := false
+	// waterLevel2 := false
+	// waterLevel3 := false
+
 	// Serwowanie pliku HTML na stronie głównej
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "gardON.html")
@@ -16,7 +22,7 @@ func main() {
 
 	mux.HandleFunc("/submit", func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
-			http.Error(w, "Błąd formularza", http.StatusBadRequest)
+			http.Error(w, "Form error", http.StatusBadRequest)
 			return
 		}
 
@@ -26,12 +32,17 @@ func main() {
 		endTime := r.FormValue("endTime")
 
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "Zaznaczone dni: %s<br>Od: %s<br>Do: %s",
+		fmt.Fprintf(w, "Selected days: %s<br>Since: %s<br>Until: %s",
 			strings.Join(days, ", "),
 			initialTime,
 			endTime,
 		)
 
+	})
+
+	mux.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(soilMoisture)
 	})
 
 	fs := http.FileServer(http.Dir("."))
