@@ -22,23 +22,24 @@
     <!--schedule mode-->
     <div id="scheduleMode">
         <h1>GardON</h1>
+        <form method="post" action="/submit">
+            <div class="scheduler">
+                <label><input type="checkbox" name="days" value="Monday" /> Monday</label>
+                <label><input type="checkbox" name="days" value="Tuesday" /> Tuesday</label>
+                <label><input type="checkbox" name="days" value="Wednesday" /> Wednesday</label>
+                <label><input type="checkbox" name="days" value="Thursday" /> Thursday</label>
+                <label><input type="checkbox" name="days" value="Friday" /> Friday</label>
+                <label><input type="checkbox" name="days" value="Saturday" /> Saturday</label>
+                <label><input type="checkbox" name="days" value="Sunday" /> Sunday</label>
 
-        <div class="scheduler">
-            <label><input type="checkbox" value="Monday" /> Monday</label>
-            <label><input type="checkbox" value="Tuesday" /> Tuesday</label>
-            <label><input type="checkbox" value="Wednesday" /> Wednesday</label>
-            <label><input type="checkbox" value="Thursday" /> Thursday</label>
-            <label><input type="checkbox" value="Friday" /> Friday</label>
-            <label><input type="checkbox" value="Saturday" /> Saturday</label>
-            <label><input type="checkbox" value="Sunday" /> Sunday</label>
+                <input type="time" id="initialTime" name="initialTime" />
+                <input type="time" id="endTime" name="endTime" />
 
-            <input type="time" id="initialTime" />
-            <input type="time" id="endTime" />
-
-            <button id="confirmButton">Confirm</button>
+                <button id="confirmButton" type="submit">Confirm</button>
 
 
-        </div>
+            </div>
+        </form>
     </div>
 
     <!--manual mode-->
@@ -78,7 +79,7 @@
             <div id="tankLevel3" class="circle"></div>
             <div id="tankLevel2" class="circle"></div>
             <div id="tankLevel1" class="circle"></div>
-            
+
 
 
         </div>
