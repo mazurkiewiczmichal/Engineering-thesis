@@ -69,7 +69,7 @@ h2 {
 }
 
 input:checked+.slider {
-    background-color: #007bff;
+    background-color: #BF498C;
 }
 
 input:checked+.slider:before {
@@ -157,6 +157,20 @@ input:checked+.sliderMode:before {
     padding: 10px;
     border-radius: 34px;
     width: 400px;
+}
+
+.circle {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 10px auto;
+    border: 2px solid #333;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.circle.filled {
+    background-color: #BF498C;
 }
 
 /* manual mode */
