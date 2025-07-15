@@ -7,6 +7,7 @@ const waterLevel3 = document.getElementById("waterLevel3");
 const soilMoisture = document.getElementById("soilMoisture");
 const valveSwitch = document.getElementById("valveSwitch");
 const pumpSwitch = document.getElementById("pumpSwitch");
+const pouring = document.getElementById("pouring");
 
 modeSwitch.onchange = (event) => {
     const isScheduleMode = event.target.checked;
@@ -66,6 +67,7 @@ fetch('/status')
         if (data.valveSwitch !== undefined) {
             valveSwitch.checked = data.valveSwitch;
         }
+        
 
         if (data.waterLevel1) {
             waterLevel1.classList.add("filled");
@@ -81,6 +83,11 @@ fetch('/status')
             waterLevel3.classList.add("filled");
         } else {
             waterLevel3.classList.remove("filled");
+        }
+        if (data.pouring) {
+            pouring.classList.add("filled");
+        } else {
+            pouring.classList.remove("filled");
         }
 
     })

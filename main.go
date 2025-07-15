@@ -17,6 +17,7 @@ func main() {
 	waterLevel3 := true
 	valveSwitch := true
 	pumpSwitch := true
+	pouring := false
 
 	mux.HandleFunc("/pumpOn", func(w http.ResponseWriter, r *http.Request) {
 		pumpSwitch = true
@@ -74,12 +75,14 @@ func main() {
 			WaterLevel3 bool `json:"waterLevel3"`
 			ValveSwitch bool `json:"valveSwitch"`
 			PumpSwitch  bool `json:"pumpSwitch"`
+			Pouring     bool `json:"pouring"`
 		}{
 			WaterLevel1: waterLevel1,
 			WaterLevel2: waterLevel2,
 			WaterLevel3: waterLevel3,
 			ValveSwitch: valveSwitch,
 			PumpSwitch:  pumpSwitch,
+			Pouring:     pouring,
 		}
 
 		json.NewEncoder(w).Encode(status)
