@@ -41,25 +41,25 @@ func main() {
 		http.ServeFile(w, r, "gardON.html")
 	})
 
-	mux.HandleFunc("/submit", func(w http.ResponseWriter, r *http.Request) {
-		if err := r.ParseForm(); err != nil {
-			http.Error(w, "Form error", http.StatusBadRequest)
-			return
-		}
+	// mux.HandleFunc("/submit", func(w http.ResponseWriter, r *http.Request) {
+	// 	if err := r.ParseForm(); err != nil {
+	// 		http.Error(w, "Form error", http.StatusBadRequest)
+	// 		return
+	// 	}
 
-		// Pobieranie wartości z formularza
-		days := r.Form["days"]
-		initialTime := r.FormValue("initialTime")
-		endTime := r.FormValue("endTime")
+	// 	// Pobieranie wartości z formularza
+	// 	days := r.Form["days"]
+	// 	initialTime := r.FormValue("initialTime")
+	// 	endTime := r.FormValue("endTime")
 
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "Selected days: %s<br>Since: %s<br>Until: %s",
-			strings.Join(days, ", "),
-			initialTime,
-			endTime,
-		)
+	// 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	// 	fmt.Fprintf(w, "Selected days: %s<br>Since: %s<br>Until: %s",
+	// 		strings.Join(days, ", "),
+	// 		initialTime,
+	// 		endTime,
+	// 	)
 
-	})
+	// })
 
 	mux.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -86,6 +86,24 @@ func main() {
 		}
 
 		json.NewEncoder(w).Encode(status)
+	})
+
+	mux.HandleFunc("/submit", func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseMultipartForm(10 << 20); err != nil {
+			http.Error(w, "Form error", http.StatusBadRequest)
+			return
+		}
+
+		days := r.Form["days"]
+		initialTime := r.FormValue("initialTime")
+		endTime := r.FormValue("endTime")
+
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		fmt.Fprintf(w, "Selected days: %s\nSince: %s\nUntil: %s",
+			strings.Join(days, ", "),
+			initialTime,
+			endTime,
+		)
 	})
 
 	fs := http.FileServer(http.Dir("."))

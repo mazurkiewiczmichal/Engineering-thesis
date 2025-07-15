@@ -8,6 +8,8 @@ const soilMoisture = document.getElementById("soilMoisture");
 const valveSwitch = document.getElementById("valveSwitch");
 const pumpSwitch = document.getElementById("pumpSwitch");
 const pouring = document.getElementById("pouring");
+const scheduleForm = document.getElementById("scheduleForm");
+
 
 modeSwitch.onchange = (event) => {
     const isScheduleMode = event.target.checked;
@@ -48,7 +50,7 @@ fetch('/data')
         soilMoisture.innerText = "Soil moisture: " + data + "%";
     })
     .catch(err => {
-        soilMoisture.innerText = "Błąd podczas pobierania danych";
+        soilMoisture.innerText = "Soil moisture: failed";
         console.error(err);
     });
 
@@ -93,3 +95,21 @@ fetch('/status')
     })
     .catch(err => console.error(err));
 
+scheduleForm.addEventListener("submit",function(e){
+    e.preventDefault();
+
+      const formData = new FormData(this);
+
+    fetch("/submit", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+    })
+    .catch(err => {
+        alert("Sending data failed!");
+        console.error(err);
+    });
+});
