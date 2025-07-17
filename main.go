@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -30,6 +31,10 @@ var (
 )
 
 func main() {
+	err := rpio.Open()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	pumpPin.Output()
 	valvePin.Output()
