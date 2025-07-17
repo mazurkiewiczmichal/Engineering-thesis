@@ -19,11 +19,11 @@ var (
 	pinLevel1                   = rpio.Pin(4)
 	waterLevel2                 = false
 	pinLevel2                   = rpio.Pin(17)
-	waterLevel3                 = true
+	waterLevel3                 = false
 	pinLevel3                   = rpio.Pin(27)
-	valveSwitch                 = true
+	valveSwitch                 = false
 	valvePin                    = rpio.Pin(22)
-	pumpSwitch                  = true
+	pumpSwitch                  = false
 	pumpPin                     = rpio.Pin(10)
 	pouring                     = false
 	initialTime  string
@@ -103,17 +103,17 @@ func main() {
 	mux.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
-		if pinLevel1.Read() == rpio.High {
+		if pinLevel1.Read() == rpio.Low {
 			waterLevel1 = true
 		} else {
 			waterLevel1 = false
 		}
-		if pinLevel2.Read() == rpio.High {
+		if pinLevel2.Read() == rpio.Low {
 			waterLevel2 = true
 		} else {
 			waterLevel2 = false
 		}
-		if pinLevel3.Read() == rpio.High {
+		if pinLevel3.Read() == rpio.Low {
 			waterLevel3 = true
 		} else {
 			waterLevel3 = false
