@@ -124,10 +124,12 @@ func main() {
 		} else {
 			waterLevel3 = false
 		}
-		if pouringStatusPin.Read() == rpio.High {
+		if pouringStatusPin.Read() == rpio.Low {
 			pouring = true
+			pouringPin.High()
 		} else {
 			pouring = false
+			pouringPin.Low()
 		}
 
 		status := struct {
