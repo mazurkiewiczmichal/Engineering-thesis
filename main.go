@@ -167,6 +167,7 @@ func main() {
 
 		days = r.Form["days"]
 		daysToWeekday()
+		days = nil
 		initialTime := r.FormValue("initialTime")
 		endTime := r.FormValue("endTime")
 
@@ -193,6 +194,7 @@ func main() {
 }
 
 func isDayToday() bool {
+
 	for _, d := range daysWeekday {
 		if d == time.Now().Weekday() {
 			return true
@@ -225,7 +227,7 @@ func daysToWeekday() {
 	}
 }
 
-// -------------------------------wip------------------------------------------
+// -------------------------------wip---------------------------------------------------------------------------
 // func stringTimeToTime(timeToChange string) time.Time {
 // 	t, _ := time.Parse("15:04", timeToChange)
 // 	return t
@@ -257,10 +259,41 @@ func daysToWeekday() {
 // 	return *timerToEnd
 // }
 
+// func isInitialBeforeEnd() bool {
+// 	if stringTimeToTime(initialTime).Before(stringTimeToTime(endTime)) {
+// 		return true
+// 	}
+// 	return false
+// }
+
+// func securitySystem(ch chan int){
+// 	for{
+// 		ch<-0
+// 		if waterLevel3 == true{
+// 			pumpPin.Low()
+// 			pumpSwitch = false
+// 		}
+// 	}
+
+// }
+
+// func autoRefil() {
+// 	if waterLevel1 == false {
+// 		pumpPin.High()
+// 		pumpSwitch = true
+// 	}
+// 	if waterLevel3 == true {
+// 		pumpPin.Low()
+// 		pumpSwitch = false
+// 	}
+
+// }
+
 // func scheduleModeOn() {
 
 // }
-// --------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------------------------------
 // func timeToStart(){
 // 	for _, d := range days{
 
