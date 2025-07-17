@@ -15,6 +15,7 @@ var (
 	daysWeekday      []time.Weekday = []time.Weekday{}
 	days             []string       = []string{}
 	soilMoisture                    = "needed"
+	soilMoisturePin                 = rpio.Pin(6)
 	waterLevel1                     = false
 	pinLevel1                       = rpio.Pin(4)
 	waterLevel2                     = false
@@ -38,6 +39,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	soilMoisturePin.Input()
 
 	pumpPin.Output()
 	valvePin.Output()
@@ -102,6 +105,11 @@ func main() {
 	// })
 
 	mux.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
+		if soilMoisturePin.Read() == rpio.Low {
+			soilMoisture = "not needed"
+		} else {
+			soilMoisture = "needed"
+		}
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(soilMoisture)
 	})

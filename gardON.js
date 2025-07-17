@@ -47,7 +47,7 @@ valveSwitch.onchange = (event) => {
 fetch('/data')
     .then(res => res.json())
     .then(data => {
-        soilMoisture.innerText = "Irrigation: " + data + "%";
+        soilMoisture.innerText = "Irrigation: " + data;
     })
     .catch(err => {
         soilMoisture.innerText = "Irigation: failed";
