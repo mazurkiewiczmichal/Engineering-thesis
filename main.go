@@ -103,6 +103,22 @@ func main() {
 	mux.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
+		if pinLevel1.Read() == rpio.High {
+			waterLevel1 = true
+		} else {
+			waterLevel1 = false
+		}
+		if pinLevel2.Read() == rpio.High {
+			waterLevel2 = true
+		} else {
+			waterLevel2 = false
+		}
+		if pinLevel3.Read() == rpio.High {
+			waterLevel3 = true
+		} else {
+			waterLevel3 = false
+		}
+
 		status := struct {
 			WaterLevel1 bool `json:"waterLevel1"`
 			WaterLevel2 bool `json:"waterLevel2"`
