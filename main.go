@@ -12,22 +12,25 @@ import (
 )
 
 var (
-	daysWeekday  []time.Weekday = []time.Weekday{}
-	days         []string       = []string{}
-	soilMoisture                = 22
-	waterLevel1                 = false
-	pinLevel1                   = rpio.Pin(4)
-	waterLevel2                 = false
-	pinLevel2                   = rpio.Pin(17)
-	waterLevel3                 = false
-	pinLevel3                   = rpio.Pin(27)
-	valveSwitch                 = false
-	valvePin                    = rpio.Pin(22)
-	pumpSwitch                  = false
-	pumpPin                     = rpio.Pin(10)
-	pouring                     = false
-	initialTime  string
-	endTime      string
+	daysWeekday      []time.Weekday = []time.Weekday{}
+	days             []string       = []string{}
+	soilMoisture                    = 22
+	waterLevel1                     = false
+	pinLevel1                       = rpio.Pin(4)
+	waterLevel2                     = false
+	pinLevel2                       = rpio.Pin(17)
+	waterLevel3                     = false
+	pinLevel3                       = rpio.Pin(27)
+	valveSwitch                     = false
+	valvePin                        = rpio.Pin(22)
+	pumpSwitch                      = false
+	pumpPin                         = rpio.Pin(10)
+	pouring                         = false
+	pouringPin                      = rpio.Pin(9)
+	pouringStatus                   = false
+	pouringStatusPin                = rpio.Pin(26)
+	initialTime      string
+	endTime          string
 )
 
 func main() {
@@ -38,14 +41,17 @@ func main() {
 
 	pumpPin.Output()
 	valvePin.Output()
+	pouringPin.Output()
 
 	pinLevel1.Input()
 	pinLevel2.Input()
 	pinLevel3.Input()
+	pouringStatusPin.Input()
 
 	pinLevel1.PullUp()
 	pinLevel2.PullUp()
 	pinLevel3.PullUp()
+	pouringStatusPin.PullUp()
 
 	mux := http.NewServeMux()
 
@@ -117,6 +123,11 @@ func main() {
 			waterLevel3 = true
 		} else {
 			waterLevel3 = false
+		}
+		if pouringStatusPin.Read() == rpio.High {
+			pouring = true
+		} else {
+			pouring = false
 		}
 
 		status := struct {
