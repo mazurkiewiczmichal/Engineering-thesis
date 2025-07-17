@@ -14,7 +14,7 @@ import (
 var (
 	daysWeekday      []time.Weekday = []time.Weekday{}
 	days             []string       = []string{}
-	soilMoisture                    = 22
+	soilMoisture                    = "needed"
 	waterLevel1                     = false
 	pinLevel1                       = rpio.Pin(4)
 	waterLevel2                     = false
