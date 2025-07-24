@@ -167,9 +167,12 @@ func main() {
 
 		days = r.Form["days"]
 		daysToWeekday()
+
 		fmt.Println(isDayToday()) //tu do zmiany jak sie zaznaczy raz dzisiejszy dzien tygodnia da confirm a pozniej odznaczy i znowu sie do confirm to dalej pokazuje ze dzien jest dziesiejszy
 		fmt.Println(days)
+		fmt.Println(daysWeekday)
 
+		daysWeekday = nil
 		days = nil
 		initialTime := r.FormValue("initialTime")
 		endTime := r.FormValue("endTime")
