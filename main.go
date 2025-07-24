@@ -167,11 +167,12 @@ func main() {
 
 		days = r.Form["days"]
 		daysToWeekday()
+		fmt.Println(isDayToday()) //tu do zmiany jak sie zaznaczy raz dzisiejszy dzien tygodnia da confirm a pozniej odznaczy i znowu sie do confirm to dalej pokazuje ze dzien jest dziesiejszy
+		fmt.Println(days)
+
 		days = nil
 		initialTime := r.FormValue("initialTime")
 		endTime := r.FormValue("endTime")
-
-		fmt.Println(isDayToday())
 
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		fmt.Fprintf(w, "Selected days: %s\nSince: %s\nUntil: %s",
@@ -191,16 +192,6 @@ func main() {
 
 	http.ListenAndServe(":12346", mux)
 
-}
-
-func isDayToday() bool {
-
-	for _, d := range daysWeekday {
-		if d == time.Now().Weekday() {
-			return true
-		}
-	}
-	return false
 }
 
 func daysToWeekday() {
@@ -225,6 +216,16 @@ func daysToWeekday() {
 			fmt.Println("Nieznany dzień:", d)
 		}
 	}
+}
+
+func isDayToday() bool {
+
+	for _, d := range daysWeekday {
+		if d == time.Now().Weekday() {
+			return true
+		}
+	}
+	return false
 }
 
 // -------------------------------wip---------------------------------------------------------------------------
