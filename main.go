@@ -190,8 +190,8 @@ func main() {
 			endTime,
 		)
 
-		daysWeekday = nil
-		days = nil
+		// daysWeekday = nil
+		// days = nil
 	})
 
 	fs := http.FileServer(http.Dir("."))
