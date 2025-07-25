@@ -233,6 +233,22 @@ func isDayToday() bool {
 	return false
 }
 
+func dupa() {
+	// ticker := time.NewTicker(1 * time.Minute)
+	for {
+		// <-ticker.C
+		if waterLevel1 == false {
+			pouringPin.High()
+			pouring = true
+		} else if waterLevel3 == true {
+			pouringPin.Low()
+			pouring = false
+		}
+
+	}
+
+}
+
 // -------------------------------wip---------------------------------------------------------------------------
 // func stringTimeToTime(timeToChange string) time.Time {
 // 	t, _ := time.Parse("15:04", timeToChange)
