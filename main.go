@@ -176,15 +176,15 @@ func main() {
 		fmt.Println(initialTime)
 		fmt.Println(endTime)
 
-		daysWeekday = nil
-		days = nil
-
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		fmt.Fprintf(w, "Selected days: %s\nSince: %s\nUntil: %s",
 			strings.Join(days, ", "),
 			initialTime,
 			endTime,
 		)
+
+		daysWeekday = nil
+		days = nil
 	})
 
 	fs := http.FileServer(http.Dir("."))
