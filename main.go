@@ -242,11 +242,11 @@ func dupa() {
 	for {
 		<-ticker.C
 		if waterLevel1 == false {
-			pouringSensorPin.High()
+			pouringStatusPin.High()
 			pouring = true
 		}
 		if waterLevel3 == true {
-			pouringSensorPin.Low()
+			pouringStatusPin.Low()
 			pouring = false
 		}
 
