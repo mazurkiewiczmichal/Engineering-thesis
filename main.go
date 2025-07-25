@@ -35,10 +35,6 @@ var (
 )
 
 func main() {
-	pumpPin.Output()
-	valvePin.Output()
-
-	go dupa()
 
 	err := rpio.Open()
 	if err != nil {
@@ -47,6 +43,8 @@ func main() {
 
 	soilMoisturePin.Input()
 
+	pumpPin.Output()
+	valvePin.Output()
 	// pouringSensorPin.Output()
 
 	pinLevel1.Input()
@@ -58,6 +56,8 @@ func main() {
 	pinLevel2.PullUp()
 	pinLevel3.PullUp()
 	pouringStatusPin.PullUp()
+
+	go dupa()
 
 	mux := http.NewServeMux()
 
