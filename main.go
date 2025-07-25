@@ -173,15 +173,15 @@ func main() {
 		}
 
 		days = r.Form["days"]
-		initialTime := r.FormValue("initialTime")
-		endTime := r.FormValue("endTime")
+		initialTime = r.FormValue("initialTime")
+		endTime = r.FormValue("endTime")
 		daysToWeekday()
 
 		// fmt.Println(isDayToday()) //tu do zmiany jak sie zaznaczy raz dzisiejszy dzien tygodnia da confirm a pozniej odznaczy i znowu sie do confirm to dalej pokazuje ze dzien jest dziesiejszy
 		// fmt.Println(days)
 		// fmt.Println(daysWeekday)
-		fmt.Println(initialTime)
-		fmt.Println(endTime)
+		// fmt.Println(initialTime)
+		// fmt.Println(endTime)
 
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		fmt.Fprintf(w, "Selected days: %s\nSince: %s\nUntil: %s",
@@ -190,8 +190,8 @@ func main() {
 			endTime,
 		)
 
-		// daysWeekday = nil
-		// days = nil
+		daysWeekday = nil
+		days = nil
 	})
 
 	fs := http.FileServer(http.Dir("."))
@@ -276,6 +276,8 @@ func dupa() {
 		fmt.Println(initialTime)
 		fmt.Println(endTime)
 		fmt.Println(now.Format(time.TimeOnly))
+		fmt.Println(daysWeekday)
+		fmt.Println(days)
 
 	}
 
