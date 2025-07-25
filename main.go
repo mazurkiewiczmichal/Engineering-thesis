@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -30,8 +31,11 @@ var (
 	// pouringSensorPin                = rpio.Pin(9)
 	pouringStatus    = false
 	pouringStatusPin = rpio.Pin(26)
-	initialTime      string
-	endTime          string
+	// initialTime      string
+	initialTime string = "00:00"
+
+	// endTime          string
+	endTime string = "23:59"
 )
 
 func main() {
@@ -226,6 +230,14 @@ func daysToWeekday() {
 	}
 }
 
+func stringTimeToTime(a string) time.Time {
+	splitedTime := strings.Split(a, ":")
+	hour, _ := strconv.Atoi(splitedTime[0])
+	minute, _ := strconv.Atoi(splitedTime[1])
+	timeTime := time.Date(0, 0, 0, hour, minute, 0, 0, time.Local)
+	return timeTime
+}
+
 func isDayToday() bool {
 
 	for _, d := range daysWeekday {
@@ -237,10 +249,12 @@ func isDayToday() bool {
 }
 
 func dupa() {
+
 	ticker := time.NewTicker(1 * time.Second)
 	// ticker := time.NewTicker(1 * time.Minute)
 	for {
 		<-ticker.C
+		now := time.Date(0, 0, 0, time.Now().Hour(), time.Now().Minute(), 0, 0, time.Local)
 		if pinLevel1.Read() == rpio.High {
 			// pouringSensorPin.High()
 			// pouring = true
@@ -251,6 +265,15 @@ func dupa() {
 			// pouring = false
 			pumpPin.Low()
 		}
+		if isDayToday() == true &&
+			stringTimeToTime(initialTime).Before(now) &&
+			now.Before(stringTimeToTime(endTime)) &&
+			soilMoisturePin.Read() == rpio.High {
+			valvePin.High()
+		} else {
+			valvePin.Low()
+		}
+		println()
 
 	}
 
