@@ -241,12 +241,12 @@ func dupa() {
 	// ticker := time.NewTicker(1 * time.Minute)
 	for {
 		<-ticker.C
-		if pinLevel1.Read() == rpio.Low {
+		if pinLevel1.Read() == rpio.High {
 			// pouringSensorPin.High()
 			// pouring = true
 			pumpPin.High()
 		}
-		if pinLevel3.Read() == rpio.High {
+		if pinLevel3.Read() == rpio.Low {
 			// pouringSensorPin.Low()
 			// pouring = false
 			pumpPin.Low()
