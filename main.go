@@ -276,7 +276,10 @@ func dupa() {
 		fmt.Println(now.Format(time.TimeOnly))
 		fmt.Println(daysWeekday)
 		fmt.Println(days)
-
+		fmt.Println(isDayToday())
+		fmt.Println(stringTimeToTime(initialTime).Before(now))
+		fmt.Println(now.Before(stringTimeToTime(endTime)))
+		fmt.Println(soilMoisturePin.Read() == rpio.High)
 	}
 	// daysWeekday = nil
 	// days = nil
