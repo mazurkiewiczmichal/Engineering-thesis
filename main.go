@@ -31,11 +31,11 @@ var (
 	// pouringSensorPin                = rpio.Pin(9)
 	pouringStatus    = false
 	pouringStatusPin = rpio.Pin(26)
-	// initialTime      string
-	initialTime string = "00:00"
+	initialTime      string
+	// initialTime string = "00:00"
 
-	// endTime          string
-	endTime string = "23:59"
+	endTime string
+	// endTime string = "23:59"
 )
 
 func main() {
