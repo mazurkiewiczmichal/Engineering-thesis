@@ -240,7 +240,8 @@ func dupa() {
 		if waterLevel1 == false {
 			pouringPin.High()
 			pouring = true
-		} else if waterLevel3 == true {
+		}
+		if waterLevel3 == true {
 			pouringPin.Low()
 			pouring = false
 		}
