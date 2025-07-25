@@ -35,6 +35,8 @@ var (
 )
 
 func main() {
+	pumpPin.Output()
+	valvePin.Output()
 
 	go dupa()
 
@@ -45,8 +47,6 @@ func main() {
 
 	soilMoisturePin.Input()
 
-	pumpPin.Output()
-	valvePin.Output()
 	// pouringSensorPin.Output()
 
 	pinLevel1.Input()
