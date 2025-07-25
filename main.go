@@ -27,7 +27,7 @@ var (
 	pumpSwitch                      = false
 	pumpPin                         = rpio.Pin(10)
 	pouring                         = false
-	pouringPin                      = rpio.Pin(9)
+	pouringSensorPin                = rpio.Pin(9)
 	pouringStatus                   = false
 	pouringStatusPin                = rpio.Pin(26)
 	initialTime      string
@@ -47,7 +47,7 @@ func main() {
 
 	pumpPin.Output()
 	valvePin.Output()
-	pouringPin.Output()
+	pouringSensorPin.Output()
 
 	pinLevel1.Input()
 	pinLevel2.Input()
@@ -135,12 +135,12 @@ func main() {
 		} else {
 			waterLevel3 = false
 		}
-		if pouringStatusPin.Read() == rpio.Low {
+		if pouringSensorPin.Read() == rpio.Low {
 			pouring = true
-			pouringPin.High()
+			pouringStatusPin.High()
 		} else {
 			pouring = false
-			pouringPin.Low()
+			pouringStatusPin.Low()
 		}
 
 		status := struct {
@@ -242,11 +242,11 @@ func dupa() {
 	for {
 		<-ticker.C
 		if waterLevel1 == false {
-			pouringPin.High()
+			pouringSensorPin.High()
 			pouring = true
 		}
 		if waterLevel3 == true {
-			pouringPin.Low()
+			pouringSensorPin.Low()
 			pouring = false
 		}
 
