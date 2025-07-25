@@ -273,7 +273,9 @@ func dupa() {
 		} else {
 			valvePin.Low()
 		}
-		println()
+		fmt.Println(initialTime)
+		fmt.Println(endTime)
+		fmt.Println(now.Format(time.TimeOnly))
 
 	}
 
