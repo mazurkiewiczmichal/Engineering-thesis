@@ -35,6 +35,9 @@ var (
 )
 
 func main() {
+
+	go dupa()
+
 	err := rpio.Open()
 	if err != nil {
 		log.Fatal(err)
@@ -234,9 +237,10 @@ func isDayToday() bool {
 }
 
 func dupa() {
+	ticker := time.NewTicker(1 * time.Second)
 	// ticker := time.NewTicker(1 * time.Minute)
 	for {
-		// <-ticker.C
+		<-ticker.C
 		if waterLevel1 == false {
 			pouringPin.High()
 			pouring = true
