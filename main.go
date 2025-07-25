@@ -12,24 +12,24 @@ import (
 )
 
 var (
-	daysWeekday      []time.Weekday = []time.Weekday{}
-	days             []string       = []string{}
-	soilMoisture                    = "needed"
-	soilMoisturePin                 = rpio.Pin(6)
-	waterLevel1                     = false
-	pinLevel1                       = rpio.Pin(4)
-	waterLevel2                     = false
-	pinLevel2                       = rpio.Pin(17)
-	waterLevel3                     = false
-	pinLevel3                       = rpio.Pin(27)
-	valveSwitch                     = false
-	valvePin                        = rpio.Pin(22)
-	pumpSwitch                      = false
-	pumpPin                         = rpio.Pin(10)
-	pouring                         = false
-	pouringSensorPin                = rpio.Pin(9)
-	pouringStatus                   = false
-	pouringStatusPin                = rpio.Pin(26)
+	daysWeekday     []time.Weekday = []time.Weekday{}
+	days            []string       = []string{}
+	soilMoisture                   = "needed"
+	soilMoisturePin                = rpio.Pin(6)
+	waterLevel1                    = false
+	pinLevel1                      = rpio.Pin(4)
+	waterLevel2                    = false
+	pinLevel2                      = rpio.Pin(17)
+	waterLevel3                    = false
+	pinLevel3                      = rpio.Pin(27)
+	valveSwitch                    = false
+	valvePin                       = rpio.Pin(22)
+	pumpSwitch                     = false
+	pumpPin                        = rpio.Pin(10)
+	pouring                        = false
+	// pouringSensorPin                = rpio.Pin(9)
+	pouringStatus    = false
+	pouringStatusPin = rpio.Pin(26)
 	initialTime      string
 	endTime          string
 )
@@ -47,7 +47,7 @@ func main() {
 
 	pumpPin.Output()
 	valvePin.Output()
-	pouringSensorPin.Output()
+	// pouringSensorPin.Output()
 
 	pinLevel1.Input()
 	pinLevel2.Input()
@@ -135,12 +135,12 @@ func main() {
 		} else {
 			waterLevel3 = false
 		}
-		if pouringSensorPin.Read() == rpio.Low {
+		if pouringStatusPin.Read() == rpio.Low {
 			pouring = true
-			pouringStatusPin.High()
+			// pouringSensorPin.High()
 		} else {
 			pouring = false
-			pouringStatusPin.Low()
+			// pouringSensorPin.Low()
 		}
 
 		status := struct {
@@ -242,12 +242,14 @@ func dupa() {
 	for {
 		<-ticker.C
 		if waterLevel1 == false {
-			pouringStatusPin.High()
-			pouring = true
+			// pouringSensorPin.High()
+			// pouring = true
+			pumpPin.High()
 		}
 		if waterLevel3 == true {
-			pouringStatusPin.Low()
-			pouring = false
+			// pouringSensorPin.Low()
+			// pouring = false
+			pumpPin.Low()
 		}
 
 	}
