@@ -298,6 +298,7 @@ func gardON(fin chan struct{}) {
 			firstRunSchedule = true
 		case <-fin:
 			daysWeekday = nil
+			fmt.Println("koniec")
 
 			return
 
