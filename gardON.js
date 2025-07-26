@@ -14,6 +14,7 @@ const scheduleForm = document.getElementById("scheduleForm");
 modeSwitch.onchange = (event) => {
     const isScheduleMode = event.target.checked;
     let url;
+
     if (isScheduleMode) {
         manualMode.classList.add("hidden");
         scheduleMode.classList.remove("hidden");
@@ -23,11 +24,11 @@ modeSwitch.onchange = (event) => {
         manualMode.classList.remove("hidden");
         url = "/manualMode";
     }
-    fetch(url).catch(function (e) {
+
+    fetch(url).catch(function(e) {
         console.error(e);
-
-
     });
+};
 
 
 
