@@ -35,7 +35,8 @@ var (
 	initialTime string = "00:00"
 
 	// endTime string
-	endTime string = "23:59"
+	endTime          string = "23:59"
+	firstRunSchedule        = false
 )
 
 func main() {
@@ -60,6 +61,8 @@ func main() {
 	pinLevel2.PullUp()
 	pinLevel3.PullUp()
 	pouringStatusPin.PullUp()
+
+	finish := make(chan struct{})
 
 	mux := http.NewServeMux()
 
@@ -170,11 +173,16 @@ func main() {
 			return
 		}
 
+		if firstRunSchedule {
+			finish <- struct{}{}
+		}
+
 		days = r.Form["days"]
 		initialTime = r.FormValue("initialTime")
 		endTime = r.FormValue("endTime")
 		daysToWeekday()
-		go gardON()
+
+		go gardON(finish)
 
 		// fmt.Println(isDayToday()) //tu do zmiany jak sie zaznaczy raz dzisiejszy dzien tygodnia da confirm a pozniej odznaczy i znowu sie do confirm to dalej pokazuje ze dzien jest dziesiejszy
 		// fmt.Println(days)
@@ -245,42 +253,53 @@ func isDayToday() bool {
 	return false
 }
 
-func gardON() {
+func gardON(fin chan struct{}) {
+	select {
+	case <-fin:
+	default:
+	}
 
 	ticker := time.NewTicker(1 * time.Second)
 	// ticker := time.NewTicker(1 * time.Minute)
 	for {
-		<-ticker.C
-		now := time.Date(0, 0, 0, time.Now().Hour(), time.Now().Minute(), 0, 0, time.Local)
-		if pinLevel1.Read() == rpio.High {
-			// pouringSensorPin.High()
-			// pouring = true
-			pumpPin.High()
+
+		select {
+		case <-ticker.C:
+			now := time.Date(0, 0, 0, time.Now().Hour(), time.Now().Minute(), 0, 0, time.Local)
+			if pinLevel1.Read() == rpio.High {
+				// pouringSensorPin.High()
+				// pouring = true
+				pumpPin.High()
+			}
+			if pinLevel3.Read() == rpio.Low {
+				// pouringSensorPin.Low()
+				// pouring = false
+				pumpPin.Low()
+			}
+			if isDayToday() == true &&
+				stringTimeToTime(initialTime).Before(now) &&
+				now.Before(stringTimeToTime(endTime)) &&
+				soilMoisturePin.Read() == rpio.High {
+				valvePin.High()
+			} else {
+				valvePin.Low()
+			}
+		case <-fin:
+			daysWeekday = nil
+			firstRunSchedule = true
+			return
+
+			// fmt.Println(initialTime)
+			// fmt.Println(endTime)
+			// fmt.Println(now.Format(time.TimeOnly))
+			// fmt.Println(daysWeekday)
+			// fmt.Println(days)
+			// fmt.Println(isDayToday())
+			// fmt.Println(stringTimeToTime(initialTime).Before(now))
+			// fmt.Println(now.Before(stringTimeToTime(endTime)))
+			// fmt.Println(soilMoisturePin.Read() == rpio.High)
 		}
-		if pinLevel3.Read() == rpio.Low {
-			// pouringSensorPin.Low()
-			// pouring = false
-			pumpPin.Low()
-		}
-		if isDayToday() == true &&
-			stringTimeToTime(initialTime).Before(now) &&
-			now.Before(stringTimeToTime(endTime)) &&
-			soilMoisturePin.Read() == rpio.High {
-			valvePin.High()
-		} else {
-			valvePin.Low()
-		}
-		fmt.Println(initialTime)
-		fmt.Println(endTime)
-		fmt.Println(now.Format(time.TimeOnly))
-		fmt.Println(daysWeekday)
-		fmt.Println(days)
-		fmt.Println(isDayToday())
-		// fmt.Println(stringTimeToTime(initialTime).Before(now))
-		// fmt.Println(now.Before(stringTimeToTime(endTime)))
-		// fmt.Println(soilMoisturePin.Read() == rpio.High)
 	}
-	// daysWeekday = nil
 }
 
 // -------------------------------wip---------------------------------------------------------------------------
