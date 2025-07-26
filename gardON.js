@@ -20,13 +20,12 @@ modeSwitch.onchange = (event) => {
         scheduleMode.classList.add("hidden");
         manualMode.classList.remove("hidden");
     }
-};
 
-modeSwitch.onchange = (event) => {
-    const checked = event.target.checked;
     const url = checked ? "/scheduleMode" : "/manualMode";
     fetch(url).catch((e) => console.error(e));
 };
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
