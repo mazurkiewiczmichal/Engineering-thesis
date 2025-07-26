@@ -284,6 +284,7 @@ func gardON(fin chan struct{}) {
 			} else {
 				valvePin.Low()
 			}
+			fmt.Println(endTime)
 		case <-fin:
 			daysWeekday = nil
 			firstRunSchedule = true
