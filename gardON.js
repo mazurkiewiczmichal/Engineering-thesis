@@ -22,6 +22,12 @@ modeSwitch.onchange = (event) => {
     }
 };
 
+modeSwitch.onchange = (event) => {
+    const checked = event.target.checked;
+    const url = checked ? "/scheduleMode" : "/manualMode";
+    fetch(url).catch((e) => console.error(e));
+};
+
 document.addEventListener("DOMContentLoaded", function () {
 
 });
@@ -37,6 +43,8 @@ valveSwitch.onchange = (event) => {
     const url = checked ? "/valveOn" : "/valveOff";
     fetch(url).catch((e) => console.error(e));
 };
+
+
 
 
 
