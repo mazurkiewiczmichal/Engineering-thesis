@@ -84,6 +84,13 @@ func main() {
 		valvePin.Low()
 	})
 
+	mux.HandleFunc("/scheduleMode", func(w http.ResponseWriter, r *http.Request) {
+
+	})
+	mux.HandleFunc("/manualMode", func(w http.ResponseWriter, r *http.Request) {
+
+	})
+
 	_ = valveSwitch
 	_ = pumpSwitch
 
@@ -207,7 +214,7 @@ func main() {
 	mux.Handle("/logoOFFswitch.png", fs)
 	mux.Handle("/logoONswitch.png", fs)
 
-	http.ListenAndServe(":12346", mux)
+	http.ListenAndServe(":12347", mux)
 
 }
 
