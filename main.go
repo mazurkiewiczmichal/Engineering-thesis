@@ -85,13 +85,19 @@ func main() {
 	})
 
 	mux.HandleFunc("/manualMode", func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			valvePin.Low()
+
+		}()
 		for {
 			select {
 			case <-finish:
 			default:
 				finish <- struct{}{}
+				return
 			}
 		}
+
 	})
 
 	_ = valveSwitch
