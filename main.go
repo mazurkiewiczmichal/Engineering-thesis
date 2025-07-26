@@ -61,8 +61,6 @@ func main() {
 	pinLevel3.PullUp()
 	pouringStatusPin.PullUp()
 
-	go dupa()
-
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/pumpOn", func(w http.ResponseWriter, r *http.Request) {
@@ -176,6 +174,7 @@ func main() {
 		initialTime = r.FormValue("initialTime")
 		endTime = r.FormValue("endTime")
 		daysToWeekday()
+		go gardON()
 
 		// fmt.Println(isDayToday()) //tu do zmiany jak sie zaznaczy raz dzisiejszy dzien tygodnia da confirm a pozniej odznaczy i znowu sie do confirm to dalej pokazuje ze dzien jest dziesiejszy
 		// fmt.Println(days)
@@ -246,7 +245,7 @@ func isDayToday() bool {
 	return false
 }
 
-func dupa() {
+func gardON() {
 
 	ticker := time.NewTicker(1 * time.Second)
 	// ticker := time.NewTicker(1 * time.Minute)
@@ -282,8 +281,6 @@ func dupa() {
 		// fmt.Println(soilMoisturePin.Read() == rpio.High)
 	}
 	// daysWeekday = nil
-	// days = nil
-
 }
 
 // -------------------------------wip---------------------------------------------------------------------------
